@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 // Connect to the mysql server and sql database
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    // console.log("connected as id " + connection.threadId);
     // Run the display function to show all available products in the database
     displayProducts();
 });
@@ -30,8 +30,9 @@ function displayProducts() {
       console.log( + res[i].item_id + "|" + res[i].product_name  + "|" + res[i].department_name  + "|" + res[i].price + "|" + res[i].stock_quantity);     
   }
   console.log("__________________________________________\n");
-  });
   promptCustomer();
+  });
+  
 }
   
 //Function to prompt the customer to make a purchase
@@ -63,41 +64,48 @@ function promptCustomer() {
     .then(function(answer) {
         var id = answer.item_id;
         var units = answer.units;
-        // checkNum(id, units);
-        console.log(answer);
+        checkNum(id, units);
+        // console.log(answer);
     });
 }
   
 
 //Check the quantity of items available for purchase
 function checkNum(id, units) {
-    connection.query("select stock_quantity from products where product_id=?",
-    [id], function(error, res){
+    //Pull information for the matching item in the database
+    connection.query("select * from products where ?",
+    {
+        item_id: id
+    },
+    function(error, res){
     if (error) throw error;
-    var currentNum = res.stock_number;
-    var newNum = currentNum - units;
+    
         //If there are not enough items in stock, cancel the purchase
+        var price = res[0].price;
+        var currNum = res[0].stock_quantity;
+        var newNum = currNum - units;
         if (newNum < 0) {
             console.log("Insufficient quantity!")
-            // connection.end();
             displayProducts();
         } else {
             //If there are sufficient items available, process the purchase
             console.log("Processing your purchase...\n");
-            var query = connection.query(
+            connection.query(
                 "UPDATE products SET ? WHERE ?",
                 [{
-                    quantity: newNum
+                    stock_quantity: newNum
+                },
+                {
+                    item_id: id
                 }],
                 function(error, res) {
                 if (error) throw error;
                 //Display purchased products and total price for order
                 console.log(res.affectedRows + " products updated!\n");
-                var totalPrice = units*res.price;
-                console.log("The total for your purchase is " + totalPrice + " .\n");
+                var totalPrice = units*price;
+                console.log("The total for your purchase is $" + totalPrice + " .\n");
                 }
             );
-            // connection.end();
             displayProducts();
         }
     });

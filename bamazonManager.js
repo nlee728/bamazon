@@ -1,18 +1,4 @@
-// * Create a new Node application called `bamazonManager.js`. Running this application will:
-
-//   * List a set of menu options:
-
-
-//   * If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
-
-//   * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
-
-//   * If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-
-//   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
-
-
-//Required npm packages
+//Required dependencies
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
@@ -30,11 +16,12 @@ connection.connect(function(error) {
   // console.log("connected as id " + connection.threadId);
 });
 
-// promptManager();
-
+//Call the promptManager function to begin the program
+promptManager();
 
 //Function to prompt the manager to select an option
 function promptManager() {
+  //Prmpt the user to make choice for the action to take
     inquirer
     .prompt({
       name: "action",
@@ -43,7 +30,7 @@ function promptManager() {
       choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Quit"]
     })
     .then(function(answer) {
-      // based on their answer, call the corresponding function
+      // Based on their answer, call the corresponding function
       if (answer.action.toUpperCase() === "VIEW PRODUCTS FOR SALE") {
         displayProducts();
       } else if (answer.action.toUpperCase() === "VIEW LOW INVENTORY") {
@@ -80,8 +67,7 @@ function displayLow() {
       console.log(res[i].item_id + "|" + res[i].product_name  + "|" + res[i].department_name  + "|" + res[i].price + "|" + res[i].stock_quantity);     
   }
   console.log("__________________________________________\n");
-  // console.log(res);
-  connection.end();
+  promptManager();
 });
 }
 
@@ -120,11 +106,9 @@ function addInventory() {
                             if (error) throw error;
                             //Display updated items
                             console.log(res.affectedRows + " products updated!\n");
-                            }
-                          ) 
-                          connection.end();                  
+                            promptManager(); 
+                            }) 
                 });
-          
       }
 
 
@@ -166,10 +150,8 @@ function addProduct() {
     function(error, res) {
       if (error) throw error;
       console.log(res.affectedRows + " product added!\n");
-    }
-  );
-  connection.end();
-    });
+      promptManager();
+      }
+    );
+  });
 }
-
-promptManager();
