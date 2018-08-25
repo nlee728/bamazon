@@ -6,7 +6,6 @@ create table products (
     department_name varchar(30),
     price integer,
     stock_quantity integer,
-    product_sales integer,
     primary key (item_id)
 );
 
@@ -33,12 +32,4 @@ insert into products (product_name, department_name, price, stock_quantity) valu
 insert into products (product_name, department_name, price, stock_quantity) values ("18in Boys Bicycle", "Toys", 104, 5);
 
 insert into products (product_name, department_name, price, stock_quantity) values ("Queen Comforter Set", "Bedding", 45, 10);
-
-
-create table departments (
-	department_id integer auto_increment not null,
-    department_name varchar(30),
-    over_head_costs integer,
-    primary key (department_id)
-);
 

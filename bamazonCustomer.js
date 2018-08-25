@@ -3,11 +3,13 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 
 //Database Connection
-var connection = mysql.createConnection({
+var connection = mysql.createConnection({node
   host: "localhost",
   port: 3306,
-  user: "root",
-  password: "root",
+//Your username
+  user: "",
+//Your password
+  password: "",
   database: "bamazon"
 });
 
