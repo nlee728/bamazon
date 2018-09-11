@@ -1,18 +1,22 @@
-#Bamazon
+# Bamazon
 
-An interactive shopping node app where MySQL and Node.JS are used to allow users to purchase items as a customer. Users can also view, track and update the product inventory as a manager.
+> An interactive shopping node app where MySQL and Node.JS are used to allow users to purchase items as a customer. Users can also view, track and update the product inventory as a manager.
 
-###Bamazon Customer
+## Getting Started
+
+
+
+### Bamazon Customer
 The Bamazon Customer Portal allows users to view the current items available for purchase. The user will be prompted to enter the Item ID and the number of units they wish to purchase. If the item is in stock, the order will be completed and the user will see the total amount of their purchase.
 
 
-###Bamazon Manager
+### Bamazon Manager
 The Bamazon Manager Portal allows users to view and edit the inventory of the store. The user will be prompted to choose from the following options:
 
-View Products For Sale
-View Low Inventory
-Add To Inventory
-Add New Product
+* View Products For Sale
+* View Low Inventory
+* Add To Inventory
+* Add New Product
 
 *View Products For Sale* allows the user to see the list of products that are currently for sale, what department the item belongs to, the price of the product and how much stock is left for that product.
 
@@ -22,19 +26,15 @@ Add New Product
 
 *Add New Product* allows the user to add a new product to the inventory. Prompts ask the user for the product ID, product name, the department name, the price and the stock quantity.
 
-
-
-####Contributors:
-Nutishia Lee GitHub
-
-####Technologies Used:
+## Built With
 Javascript
-nodeJS
+Node.js
 MySQL
 
 ####npm packages:
 mysql
 inquirer
 
-####License
-Copyright 2018 UNC Coding Bootcamp - Nutishia Lee
+## Authors
+
+* **Nutishia Lee** - [nlee728](https://github.com/nlee728)
